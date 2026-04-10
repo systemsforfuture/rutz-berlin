@@ -1,460 +1,838 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rutz ★★★ — Berlin</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #08060A;
-    --bg2: #0D0A10;
-    --bg3: #131018;
-    --accent: #7A4A9A;
-    --accent2: #9860BA;
-    --accent-dim: rgba(122,74,154,0.12);
-    --green: #4A8A5A;
-    --green2: #60AA70;
-    --green-dim: rgba(74,138,90,0.1);
-    --gold: #C8A050;
-    --gold2: #DEB860;
-    --text: #EAE6F0;
-    --text2: #A8A0B4;
-    --text3: #686070;
-    --border: rgba(255,255,255,0.06);
-    --border2: rgba(255,255,255,0.1);
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans: 'DM Sans', system-ui, sans-serif;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-weight: 300;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      radial-gradient(ellipse at 15% 30%, rgba(122,74,154,0.07) 0%, transparent 55%),
-      radial-gradient(ellipse at 85% 70%, rgba(74,138,90,0.05) 0%, transparent 55%);
-    pointer-events: none; z-index: 0;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutz | Drei-Sterne Restaurant Berlin</title>
+    <meta name="description" content="Rutz Berlin - Drei Michelin-Sterne Restaurant von Marco Müller. Moderne kreative Küche und Weinkultur auf höchstem Niveau in Berlin Mitte.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 28px 60px;
-    display: flex; align-items: center; justify-content: space-between;
-    transition: background 0.4s, padding 0.4s;
-  }
-  nav.scrolled {
-    background: rgba(8,6,10,0.96);
-    backdrop-filter: blur(20px);
-    padding: 16px 60px;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-family: var(--serif); font-size: 1.8rem; font-weight: 300;
-    letter-spacing: 0.18em; color: var(--text); text-decoration: none;
-  }
-  .nav-stars { color: var(--gold2); font-size: 0.85rem; letter-spacing: 0.06em; margin-left: 4px; }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
-  .nav-links a {
-    font-size: 0.76rem; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--text2); text-decoration: none; transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--accent2); }
-  .nav-cta {
-    font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--bg); background: var(--accent); padding: 10px 22px;
-    text-decoration: none; transition: background 0.2s;
-  }
-  .nav-cta:hover { background: var(--accent2); }
+        :root {
+            --bg-primary: #080808;
+            --bg-secondary: #0F0F0F;
+            --bg-tertiary: #161616;
+            --accent: #8B6914;
+            --accent-light: #B8922D;
+            --accent-glow: #D4A93C;
+            --text-primary: #EDE8E0;
+            --text-secondary: #A49E94;
+            --text-muted: #6B665E;
+            --border: rgba(139, 105, 20, 0.12);
+            --border-hover: rgba(139, 105, 20, 0.3);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
 
-  /* HERO — full height, typographic */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 140px 60px 100px;
-    position: relative; overflow: hidden;
-  }
-  .hero-bg-letter {
-    position: absolute;
-    left: 50%; top: 50%; transform: translate(-50%, -50%);
-    font-family: var(--serif); font-size: 80vw; font-weight: 300;
-    color: var(--accent); opacity: 0.025; line-height: 1;
-    letter-spacing: -0.1em; pointer-events: none; z-index: 0; white-space: nowrap;
-  }
-  .hero-inner {
-    max-width: 1100px; position: relative; z-index: 1;
-  }
-  .hero-top {
-    display: flex; align-items: center; gap: 16px; margin-bottom: 40px;
-  }
-  .badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 14px; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-  }
-  .badge-gold { background: rgba(200,160,80,0.12); border: 1px solid rgba(200,160,80,0.3); color: var(--gold2); }
-  .badge-green { background: var(--green-dim); border: 1px solid rgba(74,138,90,0.3); color: var(--green2); }
-  .badge-green::before { content: '🌿'; font-size: 0.75rem; }
-  .hero-title {
-    font-family: var(--serif);
-    font-size: clamp(6rem, 18vw, 18rem);
-    font-weight: 300; line-height: 0.85;
-    letter-spacing: -0.04em; margin-bottom: 40px;
-  }
-  .hero-title em { font-style: italic; color: var(--accent2); }
-  .hero-meta {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 40px; padding-top: 36px; border-top: 1px solid var(--border);
-    max-width: 800px;
-  }
-  .meta-item .num {
-    font-family: var(--serif); font-size: 1.8rem; font-weight: 300;
-    color: var(--accent2); line-height: 1; margin-bottom: 4px;
-  }
-  .meta-item .label {
-    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3);
-  }
+        html { scroll-behavior: smooth; }
 
-  section { position: relative; z-index: 1; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-  /* MARCO MÜLLER */
-  .chef { padding: 120px 60px; background: var(--bg2); }
-  .chef-inner {
-    max-width: 1200px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
-  }
-  .section-eyebrow { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent2); margin-bottom: 16px; display: block; }
-  .section-title { font-family: var(--serif); font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; }
-  .section-title em { font-style: italic; color: var(--accent2); }
-  .chef-desc { font-size: 0.92rem; color: var(--text2); line-height: 1.8; margin: 20px 0 32px; }
-  .chef-awards { display: flex; flex-direction: column; gap: 12px; }
-  .award-row { display: flex; align-items: center; gap: 12px; font-size: 0.84rem; color: var(--text2); }
-  .award-row::before { content: ''; width: 7px; height: 7px; background: var(--accent); flex-shrink: 0; }
-  .chef-quote {
-    background: var(--bg3); border: 1px solid rgba(122,74,154,0.2);
-    padding: 48px 44px; position: relative;
-  }
-  .chef-quote::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--green2));
-  }
-  .quote-text {
-    font-family: var(--serif); font-size: 1.5rem; font-weight: 300;
-    font-style: italic; line-height: 1.55; color: var(--text); margin-bottom: 20px;
-  }
-  .quote-text::before { content: '"'; color: var(--accent); font-size: 3rem; line-height: 0; vertical-align: -0.4em; margin-right: 6px; }
-  .quote-attr { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); }
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            z-index: 1000;
+            padding: 1.8rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
 
-  /* WEIN */
-  .wein { padding: 120px 60px; background: var(--bg); }
-  .wein-inner { max-width: 1200px; margin: 0 auto; }
-  .wein-layout {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 60px;
-  }
-  .wein-card {
-    background: var(--bg2); border: 1px solid var(--border); padding: 44px 36px;
-    transition: border-color 0.3s;
-  }
-  .wein-card:hover { border-color: rgba(122,74,154,0.2); }
-  .wein-num { font-family: var(--serif); font-size: 3.5rem; font-weight: 300; color: var(--accent2); line-height: 1; margin-bottom: 8px; }
-  .wein-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; margin-bottom: 10px; }
-  .wein-desc { font-size: 0.86rem; color: var(--text2); line-height: 1.7; }
+        .nav.scrolled {
+            background: rgba(8, 8, 8, 0.95);
+            backdrop-filter: blur(24px);
+            padding: 1rem 3rem;
+            border-bottom: 1px solid var(--border);
+        }
 
-  /* MENU */
-  .menu-section { padding: 120px 60px; background: var(--bg2); }
-  .menu-inner { max-width: 1200px; margin: 0 auto; }
-  .menu-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 60px; }
-  .menu-card {
-    background: var(--bg3); border: 1px solid var(--border); padding: 52px 44px;
-    position: relative; overflow: hidden; transition: border-color 0.3s;
-  }
-  .menu-card.featured {
-    border-color: rgba(122,74,154,0.3);
-    background: linear-gradient(150deg, #0E0A14 0%, var(--bg3) 100%);
-  }
-  .menu-card.featured::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--gold2));
-  }
-  .menu-badge {
-    display: inline-block; background: var(--accent); color: var(--bg);
-    font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
-    padding: 4px 12px; margin-bottom: 20px;
-  }
-  .menu-title { font-family: var(--serif); font-size: 2rem; font-weight: 300; margin-bottom: 6px; line-height: 1.1; }
-  .menu-price { font-family: var(--serif); font-size: 1.5rem; color: var(--gold2); font-weight: 300; margin-bottom: 20px; display: block; }
-  .menu-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.75; margin-bottom: 28px; }
-  .menu-courses { display: flex; flex-direction: column; gap: 9px; }
-  .course { font-size: 0.82rem; color: var(--text2); display: flex; align-items: center; gap: 10px; }
-  .course::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--accent-glow);
+            text-decoration: none;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
 
-  /* SUSTAINABILITY */
-  .sustainability {
-    padding: 80px 60px; background: #040A06;
-    border-top: 1px solid rgba(74,138,90,0.2);
-    border-bottom: 1px solid rgba(74,138,90,0.2);
-  }
-  .sust-inner {
-    max-width: 1200px; margin: 0 auto;
-    display: grid; grid-template-columns: auto 1fr; gap: 60px; align-items: center;
-  }
-  .sust-icon { font-size: 4rem; opacity: 0.7; }
-  .sust-content { }
-  .sust-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 300; margin-bottom: 10px; }
-  .sust-title em { font-style: italic; color: var(--green2); }
-  .sust-text { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
 
-  /* CONTACT */
-  .contact { padding: 120px 60px; background: var(--bg2); }
-  .contact-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; }
-  .contact-card { background: var(--bg3); border: 1px solid var(--border); padding: 44px 36px; transition: border-color 0.3s; }
-  .contact-card:hover { border-color: rgba(122,74,154,0.2); }
-  .cc-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
-  .cc-title span { font-size: 0.9rem; opacity: 0.5; }
-  .hours-list { display: flex; flex-direction: column; gap: 10px; }
-  .hours-row { display: flex; justify-content: space-between; font-size: 0.86rem; }
-  .hours-day { color: var(--text2); }
-  .hours-time { color: var(--text); font-weight: 400; }
-  .hours-closed { color: var(--text3); font-style: italic; }
-  .contact-detail { display: flex; flex-direction: column; gap: 16px; }
-  .detail-row { display: flex; flex-direction: column; gap: 4px; }
-  .detail-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); }
-  .detail-value { font-size: 0.9rem; color: var(--text); }
-  .detail-value a { color: var(--accent2); text-decoration: none; }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
 
-  footer { background: var(--bg); border-top: 1px solid var(--border); padding: 36px 60px; display: flex; align-items: center; justify-content: space-between; }
-  .footer-logo { font-family: var(--serif); font-size: 1.6rem; font-weight: 300; letter-spacing: 0.18em; color: var(--text2); }
-  .footer-copy { font-size: 0.76rem; color: var(--text3); }
-  .footer-stars { color: var(--gold2); font-size: 0.82rem; letter-spacing: 0.12em; }
+        .nav-links a:hover { color: var(--accent-glow); }
 
-  @media (max-width: 900px) {
-    nav { padding: 20px 24px; }
-    nav.scrolled { padding: 14px 24px; }
-    .nav-links, .nav-cta { display: none; }
-    .hero { padding: 120px 24px 72px; }
-    .hero-title { font-size: 5rem; }
-    .hero-meta { grid-template-columns: 1fr 1fr; gap: 24px; }
-    .chef { padding: 72px 24px; }
-    .chef-inner { grid-template-columns: 1fr; gap: 40px; }
-    .wein, .menu-section { padding: 72px 24px; }
-    .wein-layout { grid-template-columns: 1fr; }
-    .menu-cards { grid-template-columns: 1fr; }
-    .sustainability { padding: 48px 24px; }
-    .sust-inner { grid-template-columns: 1fr; gap: 24px; }
-    .contact { padding: 72px 24px; }
-    .contact-inner { grid-template-columns: 1fr; }
-    footer { padding: 28px 24px; flex-direction: column; gap: 14px; text-align: center; }
-  }
-</style>
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .nav-toggle span {
+            width: 24px; height: 1.5px;
+            background: var(--accent-glow);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: url('https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=1400&q=80') center/cover no-repeat;
+        }
+
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.5) 40%, rgba(8,8,8,0.95) 100%);
+        }
+
+        .hero-content {
+            position: relative; z-index: 2;
+            max-width: 900px;
+            padding: 0 4rem 8rem;
+        }
+
+        .hero-stars {
+            color: var(--accent-glow);
+            font-size: 1.2rem;
+            letter-spacing: 0.8rem;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--accent-glow);
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 550px;
+            line-height: 1.9;
+            margin-bottom: 3rem;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--accent-glow);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: gap 0.3s ease;
+        }
+
+        .hero-cta:hover { gap: 1.5rem; }
+
+        .hero-cta-line {
+            width: 40px; height: 1px;
+            background: var(--accent-glow);
+            transition: width 0.3s ease;
+        }
+
+        .hero-cta:hover .hero-cta-line { width: 60px; }
+
+        /* Sections */
+        section { padding: 8rem 2rem; }
+
+        .section-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-text {
+            color: var(--text-secondary);
+            max-width: 560px;
+            line-height: 1.9;
+            font-weight: 300;
+            font-size: 0.95rem;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .line-accent {
+            width: 50px; height: 1px;
+            background: linear-gradient(to right, var(--accent-glow), transparent);
+            margin: 2.5rem 0;
+        }
+
+        .line-accent-center { margin-left: auto; margin-right: auto; }
+
+        /* Chef / About */
+        .chef { background: var(--bg-secondary); }
+
+        .chef-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .chef-image {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chef-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .chef-image:hover img { transform: scale(1.02); }
+
+        .chef-image::before {
+            content: '';
+            position: absolute;
+            top: -8px; left: -8px;
+            width: 60px; height: 60px;
+            border-top: 1px solid var(--accent);
+            border-left: 1px solid var(--accent);
+            z-index: 1;
+        }
+
+        .chef-image::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; right: -8px;
+            width: 60px; height: 60px;
+            border-bottom: 1px solid var(--accent);
+            border-right: 1px solid var(--accent);
+        }
+
+        .chef-quote {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--accent-light);
+            line-height: 1.6;
+            margin-top: 2rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--accent);
+        }
+
+        /* Philosophy Cards */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .phil-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 3rem 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phil-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .phil-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+        .phil-card:hover::before { opacity: 1; }
+
+        .phil-card-num {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 300;
+            color: rgba(139, 105, 20, 0.15);
+            margin-bottom: 1.5rem;
+            line-height: 1;
+        }
+
+        .phil-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .phil-card p {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* Menu */
+        .menu-section { background: var(--bg-secondary); }
+
+        .menu-flex {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 950px;
+            margin: 3rem auto 0;
+        }
+
+        .menu-course {
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+        }
+
+        .menu-course:hover { border-color: var(--border-hover); }
+
+        .menu-course-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 0.8rem;
+        }
+
+        .menu-course h4 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 0.6rem;
+        }
+
+        .menu-course p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .menu-note {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        /* Gallery */
+        .gallery-mosaic {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: 0.8rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-mosaic .gm-item {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-mosaic .gm-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+            display: block;
+        }
+
+        .gallery-mosaic .gm-item:hover img { transform: scale(1.04); }
+
+        .gm-item.tall { grid-row: span 2; }
+
+        .gm-item::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: rgba(8,8,8,0.15);
+            transition: background 0.4s ease;
+            pointer-events: none;
+        }
+
+        .gm-item:hover::after { background: transparent; }
+
+        /* Wine */
+        .wine-section {
+            background: var(--bg-tertiary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wine-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .wine-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .wine-stat {
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .wine-stat-num {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--accent-glow);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .wine-stat-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .wine-image {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+
+        .wine-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        /* Contact */
+        .contact { background: var(--bg-secondary); }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info { display: flex; flex-direction: column; gap: 2.5rem; }
+
+        .contact-block h3 {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--accent-light);
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-block p, .contact-block a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.8;
+            text-decoration: none;
+        }
+
+        .contact-block a:hover { color: var(--accent-glow); }
+
+        .hours-table { width: 100%; border-collapse: collapse; }
+        .hours-table tr { border-bottom: 1px solid var(--border); }
+        .hours-table td { padding: 0.55rem 0; font-size: 0.88rem; color: var(--text-secondary); font-weight: 300; }
+        .hours-table td:first-child { color: var(--text-primary); font-weight: 400; }
+        .hours-table td:last-child { text-align: right; }
+        .closed { color: var(--text-muted) !important; font-style: italic; }
+
+        .contact-map {
+            aspect-ratio: 4/3;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .contact-map iframe {
+            width: 100%; height: 100%; border: none;
+            filter: grayscale(0.85) contrast(1.1) brightness(0.65);
+            transition: filter 0.4s ease;
+        }
+
+        .contact-map:hover iframe {
+            filter: grayscale(0.3) contrast(1) brightness(0.8);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--accent-glow);
+            letter-spacing: 0.3em;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer p { color: var(--text-muted); font-size: 0.8rem; font-weight: 300; }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover { color: var(--accent-glow); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex; flex-direction: column;
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: rgba(8,8,8,0.98);
+                padding: 2rem; gap: 1.5rem;
+            }
+            .nav-toggle { display: flex; }
+            .chef-grid, .contact-grid, .menu-flex, .wine-grid { grid-template-columns: 1fr; }
+            .philosophy-grid { grid-template-columns: 1fr; }
+            .gallery-mosaic { grid-template-columns: 1fr 1fr; }
+            .gm-item.tall { grid-row: span 1; }
+            .hero-content { padding: 0 2rem 5rem; }
+            section { padding: 5rem 1.5rem; }
+            .nav { padding: 1rem 1.5rem; }
+        }
+    </style>
 </head>
 <body>
 
-<nav id="nav">
-  <a href="#" class="nav-logo">RUTZ<span class="nav-stars"> ★★★</span></a>
-  <ul class="nav-links">
-    <li><a href="#chef">Marco Müller</a></li>
-    <li><a href="#wein">Weinkarte</a></li>
-    <li><a href="#menu">Menü</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
-  </ul>
-  <a href="tel:+493024628760" class="nav-cta">Reservierung</a>
-</nav>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-logo">Rutz</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#kuechenchef">Küchenchef</a></li>
+            <li><a href="#philosophie">Philosophie</a></li>
+            <li><a href="#karte">Karte</a></li>
+            <li><a href="#wein">Weinbar</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
 
-<section class="hero">
-  <div class="hero-bg-letter">R</div>
-  <div class="hero-inner">
-    <div class="hero-top">
-      <div class="badge badge-gold">★★★ Michelin · Berlin</div>
-      <div class="badge badge-green">Grüner Stern · Nachhaltigkeit</div>
-    </div>
-    <h1 class="hero-title"><em>R</em>UTZ</h1>
-    <div class="hero-meta">
-      <div class="meta-item">
-        <div class="num">★★★</div>
-        <div class="label">5× Michelin · Berlins einzige 3 Sterne</div>
-      </div>
-      <div class="meta-item">
-        <div class="num">1000+</div>
-        <div class="label">Weine auf der Karte</div>
-      </div>
-      <div class="meta-item">
-        <div class="num">Di–Sa</div>
-        <div class="label">Ab 16:00 Uhr</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="chef" id="chef">
-  <div class="chef-inner">
-    <div>
-      <span class="section-eyebrow">Küchenchef</span>
-      <h2 class="section-title">Marco <em>Müller</em></h2>
-      <p class="chef-desc">
-        Marco Müller hat das Rutz zu Berlins einzigem Drei-Sterne-Restaurant gemacht —
-        fünfmal in Folge ausgezeichnet. Sein Tasting-Menü "Inspiration" ist eine kulinarische
-        Reise mit klarer Handschrift: nordisch beeinflusst, produktgetrieben, erzählerisch.
-      </p>
-      <div class="chef-awards">
-        <div class="award-row">★★★ Michelin — 5× in Folge ausgezeichnet</div>
-        <div class="award-row">🌿 Grüner Michelin-Stern für Nachhaltigkeit</div>
-        <div class="award-row">Berlins bester Sommelier · Weinbar des Jahres</div>
-        <div class="award-row">Gault&Millau — Top-Auszeichnung</div>
-      </div>
-    </div>
-    <div class="chef-quote">
-      <p class="quote-text">
-        Kochen ist Erzählen. Jedes Gericht trägt eine Geschichte —
-        von der Region, vom Produkt, von dem, was uns bewegt.
-      </p>
-      <span class="quote-attr">— Marco Müller, Küchenchef Rutz</span>
-    </div>
-  </div>
-</section>
-
-<section class="wein" id="wein">
-  <div class="wein-inner">
-    <div>
-      <span class="section-eyebrow">Berlins beste Weinkarte</span>
-      <h2 class="section-title">Über <em>1.000 Weine</em></h2>
-    </div>
-    <div class="wein-layout">
-      <div class="wein-card">
-        <div class="wein-num">1.000+</div>
-        <div class="wein-title">Positionen</div>
-        <p class="wein-desc">Eine der umfangreichsten Weinkarten Berlins — von biodynamischen Naturweinen bis zu den großen Klassikern Frankreichs und Deutschlands.</p>
-      </div>
-      <div class="wein-card">
-        <div class="wein-num">DE</div>
-        <div class="wein-title">Deutsche Weine</div>
-        <p class="wein-desc">Besonderer Fokus auf deutsche Erzeuger: Mosel, Rheingau, Pfalz, Nahe — präzise ausgewählt von Sommelier Billy Wagner.</p>
-      </div>
-      <div class="wein-card">
-        <div class="wein-num">Bio</div>
-        <div class="wein-title">Natur & Bio</div>
-        <p class="wein-desc">Nachhaltigkeit auch im Glas: natürliche Weine, biodynamische Erzeuger und orange wines für die Avantgarde.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="menu-section" id="menu">
-  <div class="menu-inner">
-    <div>
-      <span class="section-eyebrow">Das Erlebnis</span>
-      <h2 class="section-title">Tasting <em>Menüs</em></h2>
-    </div>
-    <div class="menu-cards">
-      <div class="menu-card">
-        <h3 class="menu-title">Rutz Classic</h3>
-        <span class="menu-price">€185 p.P.</span>
-        <p class="menu-desc">Fünf Gänge — die konzentrierte Essenz der Rutz-Küche. Mit optionaler Weinbegleitung (€95).</p>
-        <div class="menu-courses">
-          <div class="course">Amuse Bouche</div>
-          <div class="course">Kalt · Warm · Hauptgang</div>
-          <div class="course">Dessert & Mignardises</div>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-stars">&#9733; &#9733; &#9733;</span>
+            <h1 class="hero-title">Drei Sterne.<br><em>Eine Vision.</em></h1>
+            <p class="hero-subtitle">Küchenchef Marco Müller verbindet puristische Aromen mit kreativer Präzision. Drei Michelin-Sterne im Herzen von Berlin Mitte.</p>
+            <a href="#karte" class="hero-cta">
+                Menü erleben
+                <span class="hero-cta-line"></span>
+            </a>
         </div>
-      </div>
-      <div class="menu-card featured">
-        <div class="menu-badge">★★★ Signature</div>
-        <h3 class="menu-title">Inspiration</h3>
-        <span class="menu-price">€295 p.P.</span>
-        <p class="menu-desc">
-          Acht bis zehn Gänge — Marco Müllers vollständige kulinarische Erzählung.
-          Mit Weinbegleitung von Billy Wagner (€145): 1.000 Weine, klug ausgewählt.
-        </p>
-        <div class="menu-courses">
-          <div class="course">Amuse Bouche Selektion</div>
-          <div class="course">Drei Kalt-Gänge</div>
-          <div class="course">Zwei Warm-Gänge · Hauptgang</div>
-          <div class="course">Predessert · Dessert</div>
-          <div class="course">Mignardises & Café</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<div class="sustainability">
-  <div class="sust-inner">
-    <div class="sust-icon">🌿</div>
-    <div class="sust-content">
-      <h3 class="sust-title">Michelin <em>Grüner Stern</em></h3>
-      <p class="sust-text">
-        Das Rutz wurde mit dem Grünen Michelin-Stern ausgezeichnet — für sein außergewöhnliches
-        Engagement für nachhaltige Gastronomie. Regionale Produzenten, saisonale Produkte,
-        konsequente Vermeidung von Lebensmittelverschwendung.
-      </p>
-    </div>
-  </div>
-</div>
+    <!-- Chef -->
+    <section class="chef" id="kuechenchef">
+        <div class="container">
+            <div class="chef-grid">
+                <div class="chef-image">
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80" alt="Küchenchef bei der Arbeit" loading="lazy">
+                </div>
+                <div>
+                    <p class="section-label">Küchenchef</p>
+                    <h2 class="section-title">Marco Müller</h2>
+                    <div class="line-accent"></div>
+                    <p class="section-text">
+                        Mit drei Michelin-Sternen ausgezeichnet, definiert Marco Müller seit Jahren
+                        die kulinarische Landschaft Berlins neu. Seine Küche verbindet
+                        regionale Produkte mit internationalen Techniken — radikal reduziert
+                        und doch von überwältigender Tiefe.
+                    </p>
+                    <br>
+                    <p class="section-text">
+                        Jeder Gang im Rutz ist eine Komposition, die Respekt vor dem Produkt
+                        mit visionärer Kreativität vereint. Eine Küche, die Grenzen verschiebt.
+                    </p>
+                    <blockquote class="chef-quote">
+                        „Das Produkt bestimmt den Weg. Wir hören zu, interpretieren und schaffen Neues."
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="contact" id="kontakt">
-  <div style="text-align:center; margin-bottom: 48px;">
-    <span class="section-eyebrow">Berlin-Mitte · Chausseestraße</span>
-    <h2 class="section-title">Reservierung &<br><em>Kontakt</em></h2>
-  </div>
-  <div class="contact-inner">
-    <div class="contact-card">
-      <h3 class="cc-title"><span>🕐</span> Öffnungszeiten</h3>
-      <div class="hours-list">
-        <div class="hours-row"><span class="hours-day">Dienstag – Samstag</span><span class="hours-time">16:00 – 23:00</span></div>
-        <div class="hours-row"><span class="hours-day">Montag / Sonntag</span><span class="hours-closed">geschlossen</span></div>
-      </div>
-    </div>
-    <div class="contact-card">
-      <h3 class="cc-title"><span>📍</span> Adresse</h3>
-      <div class="contact-detail">
-        <div class="detail-row">
-          <span class="detail-label">Straße</span>
-          <span class="detail-value">Chausseestraße 8<br>10115 Berlin-Mitte</span>
+    <!-- Philosophie -->
+    <section id="philosophie">
+        <div class="container" style="text-align: center;">
+            <p class="section-label">Unser Ansatz</p>
+            <h2 class="section-title">Drei Säulen der Exzellenz</h2>
+            <div class="line-accent line-accent-center"></div>
+            <div class="philosophy-grid">
+                <div class="phil-card">
+                    <div class="phil-card-num">01</div>
+                    <h3>Produkt</h3>
+                    <p>Kompromisslose Auswahl: Nur die besten saisonalen Zutaten von Erzeugern, die unsere Leidenschaft teilen.</p>
+                </div>
+                <div class="phil-card">
+                    <div class="phil-card-num">02</div>
+                    <h3>Technik</h3>
+                    <p>Klassische Grundlagen, moderne Methoden. Jeder Handgriff sitzt, jedes Detail ist durchdacht.</p>
+                </div>
+                <div class="phil-card">
+                    <div class="phil-card-num">03</div>
+                    <h3>Emotion</h3>
+                    <p>Geschmack, der berührt. Jedes Menü erzählt eine Geschichte, die über den Teller hinausgeht.</p>
+                </div>
+            </div>
         </div>
-        <div class="detail-row">
-          <span class="detail-label">ÖPNV</span>
-          <span class="detail-value">U6 Zinnowitzer Str. · 2 min</span>
-        </div>
-      </div>
-    </div>
-    <div class="contact-card">
-      <h3 class="cc-title"><span>☎</span> Kontakt</h3>
-      <div class="contact-detail">
-        <div class="detail-row">
-          <span class="detail-label">Telefon</span>
-          <span class="detail-value"><a href="tel:+493024628760">+49 30 246 28 760</a></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Website</span>
-          <span class="detail-value"><a href="https://rutz-restaurant.de">rutz-restaurant.de</a></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Hinweis</span>
-          <span class="detail-value">Reservierung Wochen im Voraus empfohlen</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<footer>
-  <div class="footer-logo">RUTZ</div>
-  <div class="footer-copy">© 2025 · Chausseestraße 8 · 10115 Berlin</div>
-  <div class="footer-stars">★★★ Michelin · 🌿 Green Star</div>
-</footer>
+    <!-- Speisekarte -->
+    <section class="menu-section" id="karte">
+        <div class="container" style="text-align: center;">
+            <p class="section-label">Inspiration der Saison</p>
+            <h2 class="section-title">Degustationsmenü</h2>
+            <div class="line-accent line-accent-center"></div>
+            <div class="menu-flex">
+                <div class="menu-course">
+                    <div class="menu-course-label">Erster Gang</div>
+                    <h4>Taschenkrebs & Dashi</h4>
+                    <p>Königskrabbe mit fermentiertem Rettich, Dashi-Gelee und Shiso-Blättern.</p>
+                </div>
+                <div class="menu-course">
+                    <div class="menu-course-label">Zweiter Gang</div>
+                    <h4>Rote Bete & Ziegenkäse</h4>
+                    <p>Im Salzmantel gegart, mit gereiftem Ziegenkäse-Espuma und Walnuss-Praline.</p>
+                </div>
+                <div class="menu-course">
+                    <div class="menu-course-label">Fisch</div>
+                    <h4>Wolfsbarsch & Bouillabaisse</h4>
+                    <p>Wild gefangen, auf konzentrierter Bouillabaisse-Essenz mit Fenchelpollen und Safran.</p>
+                </div>
+                <div class="menu-course">
+                    <div class="menu-course-label">Fleisch</div>
+                    <h4>Reh aus der Uckermark</h4>
+                    <p>Perfekt gegart mit Wurzelgemüse-Variation, Wacholder-Jus und schwarzem Knoblauch.</p>
+                </div>
+                <div class="menu-course">
+                    <div class="menu-course-label">Käse</div>
+                    <h4>Affineur-Selektion</h4>
+                    <p>Handverlesene Käse-Auswahl mit saisonalen Chutneys und frisch gebackenem Walnussbrot.</p>
+                </div>
+                <div class="menu-course">
+                    <div class="menu-course-label">Dessert</div>
+                    <h4>Quitte & Sanddorn</h4>
+                    <p>Pochierte Quitte mit Sanddorn-Sorbet, weißer Schokolade und Thymian-Honig.</p>
+                </div>
+            </div>
+            <p class="menu-note">Die Menüs wechseln mit den Jahreszeiten. Preise und aktuelle Gerichte auf Anfrage bei Reservierung.</p>
+        </div>
+    </section>
 
-<script>
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  });
-</script>
+    <!-- Weinbar -->
+    <section class="wine-section" id="wein">
+        <div class="container">
+            <div class="wine-grid">
+                <div>
+                    <p class="section-label">Weinkultur</p>
+                    <h2 class="section-title">Die Weinbar im Rutz</h2>
+                    <div class="line-accent"></div>
+                    <p class="section-text">
+                        Schon vor den drei Sternen war das Rutz als Weinbar eine Institution.
+                        Über 1.000 Positionen aus aller Welt — von großen Burgundern
+                        bis zu handwerklichen Naturweinen. Unsere Sommeliers gestalten
+                        Weinbegleitungen, die jeden Gang auf ein neues Level heben.
+                    </p>
+                    <div class="wine-stats">
+                        <div class="wine-stat">
+                            <span class="wine-stat-num">1.000+</span>
+                            <span class="wine-stat-label">Weinpositionen</span>
+                        </div>
+                        <div class="wine-stat">
+                            <span class="wine-stat-num">15+</span>
+                            <span class="wine-stat-label">Länder</span>
+                        </div>
+                        <div class="wine-stat">
+                            <span class="wine-stat-num">3</span>
+                            <span class="wine-stat-label">Sommeliers</span>
+                        </div>
+                        <div class="wine-stat">
+                            <span class="wine-stat-num">&#9733;&#9733;&#9733;</span>
+                            <span class="wine-stat-label">Michelin Sterne</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="wine-image">
+                    <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" alt="Weinkeller Rutz" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie -->
+    <section id="galerie">
+        <div class="container" style="text-align: center;">
+            <p class="section-label">Momente</p>
+            <h2 class="section-title">Einblicke ins Rutz</h2>
+            <div class="line-accent line-accent-center"></div>
+            <div class="gallery-mosaic">
+                <div class="gm-item tall">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80" alt="Atmosphäre" loading="lazy">
+                </div>
+                <div class="gm-item">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Gericht" loading="lazy">
+                </div>
+                <div class="gm-item">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" alt="Plating" loading="lazy">
+                </div>
+                <div class="gm-item">
+                    <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=800&q=80" alt="Fine Dining" loading="lazy">
+                </div>
+                <div class="gm-item">
+                    <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=800&q=80" alt="Detail" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section class="contact" id="kontakt">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <p class="section-label">Reservierung</p>
+                <h2 class="section-title">Ihr Tisch im Rutz</h2>
+                <div class="line-accent line-accent-center"></div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-block">
+                        <h3>Adresse</h3>
+                        <p>Chausseestraße 8<br>10115 Berlin Mitte</p>
+                    </div>
+                    <div class="contact-block">
+                        <h3>Reservierung</h3>
+                        <p><a href="tel:+493024628760">+49 30 2462 8760</a></p>
+                        <p><a href="https://rutz-restaurant.de" target="_blank">rutz-restaurant.de</a></p>
+                    </div>
+                    <div class="contact-block">
+                        <h3>Öffnungszeiten</h3>
+                        <table class="hours-table">
+                            <tr><td>Montag</td><td class="closed">Geschlossen</td></tr>
+                            <tr><td>Dienstag</td><td>16:00 – 23:00</td></tr>
+                            <tr><td>Mittwoch</td><td>16:00 – 23:00</td></tr>
+                            <tr><td>Donnerstag</td><td>16:00 – 23:00</td></tr>
+                            <tr><td>Freitag</td><td>16:00 – 23:00</td></tr>
+                            <tr><td>Samstag</td><td>16:00 – 23:00</td></tr>
+                            <tr><td>Sonntag</td><td class="closed">Geschlossen</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.5!2d13.3834!3d52.5289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851e75cdb4f37%3A0x2a15b9cfaf1db849!2sRutz!5e0!3m2!1sde!2sde!4v1700000000000!5m2!1sde!2sde" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Standort Rutz Berlin"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">Rutz</div>
+        <ul class="footer-links">
+            <li><a href="#kuechenchef">Küchenchef</a></li>
+            <li><a href="#karte">Karte</a></li>
+            <li><a href="#wein">Weinbar</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+        <p>Chausseestraße 8 &middot; 10115 Berlin &middot; +49 30 2462 8760</p>
+        <p style="margin-top: 0.5rem;">&copy; 2026 Rutz Berlin. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80));
+
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+        navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const t = document.querySelector(this.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
 </body>
 </html>
